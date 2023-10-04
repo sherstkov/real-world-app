@@ -1,5 +1,4 @@
 import { CONFIG } from "../config";
-// import type { GenericErrorModel, HttpResponse } from 'src/services/api'
 import { Api, ContentType } from "./api";
 
 export const limit = 10;
