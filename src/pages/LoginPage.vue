@@ -9,15 +9,19 @@
           </p>
 
           <ul class="error-messages">
-            <li>That email is already taken</li>
+            <li v-for="(error, field) in errors" :key="field">
+              {{ field }} {{ error ? error[0] : '' }}
+            </li>
           </ul>
 
-          <form>
+          <form @submit.prevent="loginUser">
             <fieldset class="form-group">
               <input
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Email"
+                required
+                v-model="form.email"
               />
             </fieldset>
             <fieldset class="form-group">
@@ -25,9 +29,15 @@
                 class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
+                required
+                v-model="form.password"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button
+              class="btn btn-lg btn-primary pull-xs-right"
+              type="submit"
+              :disabled="!form.email || !form.password"
+            >
               Sign in
             </button>
           </form>
@@ -37,8 +47,35 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: "LoginPage",
+<script setup lang="ts">
+import { useStore } from 'vuex';
+import { api, isFetchError } from '@/services';
+import { LoginUser } from '@/services/api';
+import { ref, reactive } from 'vue';
+import { UPDATE_USER_INFO } from '@/store/modules/user/user.actions.types';
+import { HOME_ROUTE_NAME } from '@/contsants/routes';
+import { routerPush } from '@/router/router';
+
+const store = useStore();
+
+const form: LoginUser = reactive({
+  email: '',
+  password: '',
+});
+const errors = ref();
+
+const loginUser = async () => {
+  errors.value = {};
+
+  try {
+    const result = await api.users.login({ user: form });
+    store.dispatch(UPDATE_USER_INFO, result.data.user);
+    routerPush(HOME_ROUTE_NAME);
+  } catch (e) {
+    if (isFetchError(e)) {
+      errors.value = e.error?.errors;
+      return;
+    }
+  }
 };
 </script>
