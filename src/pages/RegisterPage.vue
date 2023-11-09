@@ -7,9 +7,10 @@
           <p class="text-xs-center">
             <a href="/login">Have an account?</a>
           </p>
-
           <ul class="error-messages">
-            <li>That email is already taken</li>
+            <li v-for="(error, field) in errors" :key="field">
+              {{ field }}: {{ error ? error[0] : '' }}
+            </li>
           </ul>
 
           <form @submit.prevent="registerUser">
@@ -37,7 +38,11 @@
                 placeholder="Password"
               />
             </fieldset>
-            <button type="submit" class="btn btn-lg btn-primary pull-xs-right">
+            <button
+              type="submit"
+              class="btn btn-lg btn-primary pull-xs-right"
+              :disabled="!(user.email && user.username && user.password)"
+            >
               Sign up
             </button>
           </form>
@@ -48,16 +53,17 @@
 </template>
 
 <script lang="ts">
-import { api } from "@/services";
-
+import { api } from '@/services';
+import { UPDATE_USER_INFO } from '@/store/modules/user/user.actions.types';
+import { isFetchError } from '@/services';
 export default {
-  name: "RegisterPage",
+  name: 'RegisterPage',
   data() {
     return {
       user: {
-        username: "",
-        email: "",
-        password: "",
+        username: '',
+        email: '',
+        password: '',
       },
       errors: [],
     };
@@ -69,16 +75,14 @@ export default {
           user: this.user,
         });
 
-        if (response.data.success) {
-
-        } else {
-          this.errors = response.data.errors;
+        if (response.data) {
+          this.$store.dispatch(UPDATE_USER_INFO, response.data.user);
         }
       } catch (error) {
-        console.error("Error registering user:", error);
-        this.errors = [
-          "An error occurred while registering. Please try again later.",
-        ];
+        console.error('Error registering user:', error);
+        if (isFetchError(error)) {
+          this.errors = error.error?.errors;
+        }
       }
     },
   },

@@ -36,7 +36,7 @@
             <button
               class="btn btn-lg btn-primary pull-xs-right"
               type="submit"
-              :disabled="!form.email || !form.password"
+              :disabled="!(form.email && form.password)"
             >
               Sign in
             </button>
