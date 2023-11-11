@@ -36,7 +36,7 @@ const mutations = {
 
 const actions = {
   [UPDATE_USER_INFO]({ commit }: UserActionContext, user: User) {
-    commit(SET_USER_INFO, { user });
+    commit(SET_USER_INFO, user);
   },
 
   [LOGOUT]({ commit }: UserActionContext) {
