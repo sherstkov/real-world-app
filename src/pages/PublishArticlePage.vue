@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { HOME_ROUTE_NAME } from '@/contsants/routes';
+import { ARTICLE_ROUTE_NAME } from '@/contsants/routes';
 import { api } from '@/services';
 import type { Article } from '@/services/api';
 
@@ -100,10 +100,7 @@ export default {
           .createArticle({ article: this.article })
           .then((res) => res.data.article);
       }
-      console.log(article);
-
-      return this.$router.push({ name: HOME_ROUTE_NAME });
-      // return this.$router.push({ name: 'article', params: { slug: article.slug } });
+      return this.$router.push({ name: ARTICLE_ROUTE_NAME, params: { slug: article.slug } });
     },
     async fetchArticle(slug: string) {
       const article = await api.articles.getArticle(slug).then((res) => res.data.article);

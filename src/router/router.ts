@@ -8,15 +8,9 @@ import {
   PROFILE_ROUTE_NAME,
   PUBLISH_ARTICLE_ROUTE_NAME,
   SETTINGS_ROUTE_NAME,
+  ARTICLE_ROUTE_NAME,
+  EDIT_ARTICLE_ROUTE_NAME,
 } from '../contsants/routes';
-
-export type AppRouteNames =
-  | typeof HOME_ROUTE_NAME
-  | typeof LOGIN_ROUTE_NAME
-  | typeof REGISTER_ROUTE_NAME
-  | typeof PROFILE_ROUTE_NAME
-  | typeof PUBLISH_ARTICLE_ROUTE_NAME
-  | typeof SETTINGS_ROUTE_NAME;
 
 const routes: RouteRecordRaw[] = [
   {
@@ -50,7 +44,18 @@ const routes: RouteRecordRaw[] = [
         path: '/article/create',
         name: PUBLISH_ARTICLE_ROUTE_NAME,
         component: () =>
-          import(/* webpackChunkName: 'publish-page' */ '@/pages/PublishArticlePage.vue'),
+          import(/* webpackChunkName: 'publish-article-page' */ '@/pages/PublishArticlePage.vue'),
+      },
+      {
+        path: '/article/:slug/edit',
+        name: EDIT_ARTICLE_ROUTE_NAME,
+        component: () =>
+          import(/* webpackChunkName: 'edit-article-page' */ '@/pages/PublishArticlePage.vue'),
+      },
+      {
+        path: '/article/:slug',
+        name: ARTICLE_ROUTE_NAME,
+        component: () => import(/* webpackChunkName: 'article-page' */ '@/pages/ArticlePage.vue'),
       },
       {
         path: '/settings',

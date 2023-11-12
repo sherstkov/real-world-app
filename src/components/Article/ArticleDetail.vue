@@ -1,0 +1,46 @@
+<template>
+  <div class="banner">
+    <div class="container">
+      <h1>{{ article.title }}</h1>
+
+      <ArticleDetailMeta v-if="article" :article="article" @update="updateArticle" />
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row article-content">
+      <div id="article-content" class="col-md-12" v-html="articleHandledBody" />
+      <ul class="tag-list">
+        <li v-for="tag in article.tagList" :key="tag" class="tag-default tag-pill tag-outline">
+          {{ tag }}
+        </li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <div class="article-actions">
+      <ArticleDetailMeta v-if="article" :article="article" @update="updateArticle" />
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, reactive } from 'vue';
+import { useRoute } from 'vue-router';
+import { api } from '@/services';
+import type { Article } from '@/services/api';
+import ArticleDetailMeta from './ArticleDetailMeta.vue';
+
+const route = useRoute();
+const slug = route.params.slug as string;
+const article: Article = reactive(
+  await api.articles.getArticle(slug).then((res) => res.data.article),
+);
+
+const articleHandledBody = computed(() => article.body);
+
+const updateArticle = (newArticle: Article) => {
+  Object.assign(article, newArticle);
+};
+</script>
