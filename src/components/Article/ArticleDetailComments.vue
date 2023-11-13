@@ -23,7 +23,7 @@ const route = useRoute();
 const slug = route.params.slug as string;
 const store = useStore();
 
-const { user } = store.getters;
+const user = computed(() => store.getters);
 
 const username = computed(() => user.value?.username);
 

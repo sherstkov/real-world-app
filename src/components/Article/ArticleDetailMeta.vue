@@ -80,7 +80,8 @@ const emit = defineEmits<Emits>();
 const router = useRouter();
 const store = useStore();
 
-const { user, isAuthenticated } = store.getters;
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
+const user = computed(() => store.getters.user);
 
 const { article } = toRefs(props);
 const displayEditButton = computed(

@@ -47,7 +47,7 @@ const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 const store = useStore();
 
-const { user } = store.getters;
+const user = computed(() => store.getters.user);
 
 const username = computed(() => user.value?.username ?? '');
 const { profile } = useProfile({ username });
