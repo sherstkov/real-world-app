@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { router } from '@/router/router';
 import { api, isFetchError } from '@/services';
 import { LoginUser } from '@/services/api';
 import { ref, reactive } from 'vue';
@@ -57,7 +57,6 @@ import { UPDATE_USER_INFO } from '@/store/modules/user/user.actions.types';
 import { HOME_ROUTE_NAME } from '@/contsants/routes';
 
 const store = useStore();
-const router = useRouter();
 
 const form: LoginUser = reactive({
   email: '',

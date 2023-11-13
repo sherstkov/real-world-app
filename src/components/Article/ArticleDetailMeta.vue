@@ -63,7 +63,7 @@ import { computed, toRefs } from 'vue';
 import { useStore } from 'vuex';
 import { useFavoriteArticle } from '@/composable/useFavoriteArticle';
 import { useFollow } from '@/composable/useFollowProfile';
-import { useRouter } from 'vue-router';
+import { router } from '@/router/router';
 import { api } from '@/services';
 import type { Article, Profile } from '@/services/api';
 import { HOME_ROUTE_NAME, EDIT_ARTICLE_ROUTE_NAME, PROFILE_ROUTE_NAME } from '@/contsants/routes';
@@ -77,7 +77,6 @@ interface Emits {
 
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
-const router = useRouter();
 const store = useStore();
 
 const isAuthenticated = computed(() => store.getters.isAuthenticated);

@@ -20,7 +20,6 @@ export default class WebStorage<T = unknown> {
 
   set(value: T) {
     const strValue = JSON.stringify(value);
-    console.log(strValue);
 
     window[this.storageType].setItem(this.key, strValue);
   }

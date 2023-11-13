@@ -71,7 +71,3 @@ export const router = createRouter({
   routes,
   linkExactActiveClass: 'active',
 });
-
-const isAuthenticated = () => {
-  return store.getters.isAuthenticated;
-};
