@@ -10,7 +10,23 @@ import {
   SETTINGS_ROUTE_NAME,
   ARTICLE_ROUTE_NAME,
   EDIT_ARTICLE_ROUTE_NAME,
+  TAG_ROUTE_NAME,
+  PERSONAL_FEED_ROUTE_NAME,
+  PROFILE_FAVORITES,
 } from '../contsants/routes';
+
+export type Routes =
+  | typeof HOME_ROUTE_NAME
+  | typeof LOGIN_ROUTE_NAME
+  | typeof REGISTER_ROUTE_NAME
+  | typeof PROFILE_ROUTE_NAME
+  | typeof PUBLISH_ARTICLE_ROUTE_NAME
+  | typeof SETTINGS_ROUTE_NAME
+  | typeof ARTICLE_ROUTE_NAME
+  | typeof EDIT_ARTICLE_ROUTE_NAME
+  | typeof TAG_ROUTE_NAME
+  | typeof PERSONAL_FEED_ROUTE_NAME
+  | typeof PROFILE_FAVORITES;
 
 const routes: RouteRecordRaw[] = [
   {
@@ -22,6 +38,23 @@ const routes: RouteRecordRaw[] = [
         path: '',
         name: HOME_ROUTE_NAME,
         component: () => import(/* webpackChunkName: 'home-page' */ '@/pages/HomePage.vue'),
+      },
+      {
+        path: '/tag/:tag',
+        name: TAG_ROUTE_NAME,
+        component: () => import(/* webpackChunkName: 'tag-page' */ '@/pages/HomePage.vue'),
+      },
+      {
+        path: '/my-feed',
+        name: PERSONAL_FEED_ROUTE_NAME,
+        component: () =>
+          import(/* webpackChunkName: 'personal-feed-page' */ '@/pages/HomePage.vue'),
+      },
+      {
+        path: '/profile/:username/favorites',
+        name: PROFILE_FAVORITES,
+        component: () =>
+          import(/* webpackChunkName: 'profile-favorites' */ '@/pages/ProfilePage.vue'),
       },
       {
         path: '/login',
@@ -71,3 +104,7 @@ export const router = createRouter({
   routes,
   linkExactActiveClass: 'active',
 });
+
+const isAuthenticated = () => {
+  return store.getters.isAuthenticated;
+};

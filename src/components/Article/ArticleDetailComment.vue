@@ -7,9 +7,8 @@
     </div>
 
     <div class="card-footer">
-      <AppLink
-        name="profile"
-        :params="{ username: comment.author.username }"
+      <router-link
+        :to="{ name: PROFILE_ROUTE_NAME, params: { username: comment.author.username } }"
         class="comment-author"
       >
         <img
@@ -17,17 +16,16 @@
           class="comment-author-img"
           :alt="comment.author.username"
         />
-      </AppLink>
+      </router-link>
 
       &nbsp;
 
-      <AppLink
-        name="profile"
-        :params="{ username: comment.author.username }"
+      <router-link
+        :to="{ name: PROFILE_ROUTE_NAME, params: { username: comment.author.username } }"
         class="comment-author"
       >
         {{ comment.author.username }}
-      </AppLink>
+      </router-link>
 
       <span class="date-posted">{{ new Date(comment.createdAt).toLocaleDateString('en-US') }}</span>
 
@@ -49,6 +47,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Comment } from '@/services/api';
+import { PROFILE_ROUTE_NAME } from '@/contsants/routes';
 
 interface Props {
   comment: Comment;

@@ -18,3 +18,11 @@ export const api = new Api({
 export function isFetchError<E = GenericErrorModel>(e: unknown): e is HttpResponse<unknown, E> {
   return e instanceof Object && 'error' in e;
 }
+
+export function pageToOffset(
+  page: number = 1,
+  localLimit = limit,
+): { limit: number; offset: number } {
+  const offset = (page - 1) * localLimit;
+  return { limit: localLimit, offset };
+}

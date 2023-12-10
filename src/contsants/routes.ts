@@ -6,3 +6,6 @@ export const SETTINGS_ROUTE_NAME = 'settings';
 export const PUBLISH_ARTICLE_ROUTE_NAME = 'publish-article';
 export const ARTICLE_ROUTE_NAME = 'article';
 export const EDIT_ARTICLE_ROUTE_NAME = 'edit-article';
+export const TAG_ROUTE_NAME = 'tag';
+export const PERSONAL_FEED_ROUTE_NAME = 'my-feed';
+export const PROFILE_FAVORITES = 'profile-favorites';
